@@ -1,0 +1,43 @@
+.watchlist-thumbnail {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  width: 16rem;
+  height: 10rem;
+  padding: 0.7rem;
+  border-radius: 0.7rem;
+  overflow: hidden;
+}
+
+.watchlist-thumbnail:hover {
+  box-shadow: inset 0 0 10px 3px rgba(255, 255, 255, 0.5);
+}
+
+.watchlist-thumbnail--img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.watchlist-thumbnail--title {
+  text-shadow: 0 0 5px var(--black);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.watchlist-thumbnail--trash-can {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.2rem;
+}
+
+.watchlist-thumbnail--trash-can *:hover {
+  -webkit-text-fill-color: var(--golden);
+  color: var(--golden);
+}

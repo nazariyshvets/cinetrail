@@ -1,0 +1,36 @@
+.skewed-button {
+  position: relative;
+  padding: 0.4rem 2rem;
+  border: 0.1rem solid var(--golden);
+  background-color: transparent;
+  font-size: 1.2rem;
+  font-weight: 700;
+  -webkit-text-fill-color: var(--golden);
+  color: var(--golden);
+  text-transform: uppercase;
+  transition: color 1s;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.skewed-button:hover {
+  -webkit-text-fill-color: var(--white);
+  color: var(--white);
+}
+
+.skewed-button:hover::before {
+  left: -20%;
+}
+
+.skewed-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background-color: var(--golden);
+  transform: skewX(35deg);
+  transition: left 1s;
+}

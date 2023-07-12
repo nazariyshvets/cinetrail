@@ -1,0 +1,12 @@
+.home-page--rows {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.2rem;
+  padding: 1.2rem;
+}
+
+@media screen and (max-width: 480px) {
+  .home-page--rows {
+    padding: 1rem;
+  }
+}
