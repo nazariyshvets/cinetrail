@@ -69,7 +69,7 @@ function ProfilePage() {
     const unsubscribe = onSnapshot(
       docRef,
       (snapshot) =>
-        snapshot.data().images.length > images.length && fetchImages()
+        snapshot.data()?.images.length > images.length && fetchImages()
     );
 
     return () => unsubscribe();

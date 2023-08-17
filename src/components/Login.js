@@ -1,13 +1,21 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
+import { isMobile } from "react-device-detect";
+import { getRedirectResult } from "firebase/auth";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import GoogleButton from "./GoogleButton";
+import { auth, db } from "../firebaseConfig";
 import { AuthContext } from "../contexts/AuthContext";
 import { TrContext } from "../contexts/TrContext";
-import { LoginTr } from "../translations/translations";
+import { LoginTr, AuthContextTr } from "../translations/translations";
 
 function Login({ onSetContainer }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { signInUser, signInUserWithGoogle } = useContext(AuthContext);
+  const {
+    signInUser,
+    signInUserWithGooglePopup,
+    signInUserWithGoogleRedirect,
+  } = useContext(AuthContext);
   const { langCode } = useContext(TrContext);
 
   function handleSigningIn(event) {
@@ -16,8 +24,41 @@ function Login({ onSetContainer }) {
   }
 
   function handleSigningInWithGoogle() {
-    signInUserWithGoogle();
+    if (isMobile) {
+      signInUserWithGoogleRedirect();
+      localStorage.setItem("isRedirected", "true");
+    } else {
+      signInUserWithGooglePopup();
+    }
   }
+
+  useEffect(() => {
+    const isRedirected = JSON.parse(localStorage.getItem("isRedirected"));
+
+    if (isRedirected) {
+      localStorage.removeItem("isRedirected");
+
+      getRedirectResult(auth)
+        .then(async (result) => {
+          const docRef = doc(db, "users", result.user.uid);
+          const docSnap = await getDoc(docRef);
+
+          if (!docSnap.exists()) {
+            setDoc(doc(db, "users", result.user.uid), {
+              email: result.user.email,
+              watchlist: [],
+              images: [],
+            });
+          }
+        })
+        .catch((error) => {
+          alert(
+            `${AuthContextTr.signinError[langCode]} ${error.code} ${error.message}`
+          );
+          console.error(`Sign-in error: ${error.code} ${error.message}`);
+        });
+    }
+  }, [langCode]);
 
   return (
     <div className="login">

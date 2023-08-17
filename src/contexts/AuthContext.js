@@ -5,6 +5,7 @@ import {
   signOut,
   onAuthStateChanged,
   signInWithPopup,
+  signInWithRedirect,
 } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { auth, googleProvider, db } from "../firebaseConfig";
@@ -52,7 +53,7 @@ function AuthProvider({ children }) {
     });
   }
 
-  function signInUserWithGoogle() {
+  function signInUserWithGooglePopup() {
     signInWithPopup(auth, googleProvider)
       .then(async (result) => {
         const docRef = doc(db, "users", result.user.uid);
@@ -74,6 +75,10 @@ function AuthProvider({ children }) {
       });
   }
 
+  function signInUserWithGoogleRedirect() {
+    signInWithRedirect(auth, googleProvider);
+  }
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => setUser(user));
 
@@ -87,7 +92,8 @@ function AuthProvider({ children }) {
         registerUser,
         signInUser,
         signOutUser,
-        signInUserWithGoogle,
+        signInUserWithGooglePopup,
+        signInUserWithGoogleRedirect,
       }}
     >
       {children}
