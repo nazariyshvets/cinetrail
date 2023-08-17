@@ -54,6 +54,11 @@
   cursor: pointer;
 }
 
+.row--arrow-left.show,
+.row--arrow-right.show {
+  display: flex;
+}
+
 .row--arrow-right {
   left: auto;
   right: 1rem;

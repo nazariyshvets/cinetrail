@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { isMobile } from "react-device-detect";
+import { isMobile, isTablet } from "react-device-detect";
 import { getRedirectResult } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import GoogleButton from "./GoogleButton";
@@ -24,7 +24,7 @@ function Login({ onSetContainer }) {
   }
 
   function handleSigningInWithGoogle() {
-    if (isMobile) {
+    if (isMobile || isTablet) {
       signInUserWithGoogleRedirect();
       localStorage.setItem("isRedirected", "true");
     } else {
@@ -48,6 +48,7 @@ function Login({ onSetContainer }) {
               email: result.user.email,
               watchlist: [],
               images: [],
+              selectedImage: "",
             });
           }
         })

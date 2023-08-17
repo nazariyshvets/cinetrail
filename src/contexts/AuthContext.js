@@ -64,6 +64,7 @@ function AuthProvider({ children }) {
             email: result.user.email,
             watchlist: [],
             images: [],
+            selectedImage: "",
           });
         }
       })

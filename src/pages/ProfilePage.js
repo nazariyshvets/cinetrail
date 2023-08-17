@@ -12,53 +12,39 @@ import "../styles/ProfilePage.css";
 import logo from "../images/big_logo.png";
 
 function ProfilePage() {
+  // images structure is { name: string, path: string }
   const [images, setImages] = useState([]);
+  const [selectedImage, setSelectedImage] = useState("");
   const [isImageUploaderActive, setIsImageUploaderActive] = useState(false);
   const { user, signOutUser } = useContext(AuthContext);
   const { langCode } = useContext(TrContext);
 
-  function toggleImageUploader() {
-    setIsImageUploaderActive(
-      (prevIsImageUploaderActive) => !prevIsImageUploaderActive
-    );
-  }
-
   async function handleSelectImage(imageName) {
     const docRef = doc(db, "users", user.uid);
-    const docSnap = await getDoc(docRef);
-    let imagesData = docSnap.data().images;
-
-    imagesData = imagesData.map((imageData) => ({
-      ...imageData,
-      isSelected: imageData.name === imageName,
-    }));
 
     try {
-      await setDoc(docRef, { images: imagesData }, { merge: true });
-      setImages((prevImages) =>
-        prevImages.map((image) => ({
-          ...image,
-          isSelected: image.name === imageName,
-        }))
-      );
+      await setDoc(docRef, { selectedImage: imageName }, { merge: true });
+      setSelectedImage(imageName);
     } catch (error) {
       console.error("Error updating image selection:", error);
     }
   }
 
-  const fetchImages = useCallback(async () => {
+  const fetchData = useCallback(async () => {
     try {
       const docRef = doc(db, "users", user.uid);
       const docSnap = await getDoc(docRef);
-      const imagesData = docSnap.data().images || [];
+      const imagesData = docSnap.data()?.images || [];
+      const selectedImageData = docSnap.data()?.selectedImage || "";
       const imagesDataPromises = imagesData.map(async (image) => {
-        const imageRef = ref(storage, `images/${image.name}`);
+        const imageRef = ref(storage, `images/${image}`);
         const fullPath = await getDownloadURL(imageRef);
-        return { ...image, path: fullPath };
+        return { name: image, path: fullPath };
       });
-
       const imagesDataWithUrls = await Promise.all(imagesDataPromises);
+
       setImages(imagesDataWithUrls);
+      setSelectedImage(selectedImageData);
     } catch (error) {
       console.error("Error retrieving images:", error);
     }
@@ -69,24 +55,25 @@ function ProfilePage() {
     const unsubscribe = onSnapshot(
       docRef,
       (snapshot) =>
-        snapshot.data()?.images.length > images.length && fetchImages()
+        snapshot.data()?.images.length !== images.length && fetchData()
     );
 
     return () => unsubscribe();
-  }, [fetchImages, images, user.uid]);
+  }, [fetchData, images, user.uid]);
 
   const sidebarImages = images.map((image, index) => (
     <div
       key={index}
       className={`profile-page--sidebar--img-wrapper ${
-        image.isSelected ? "selected" : ""
+        image.name === selectedImage ? "selected" : ""
       }`}
       onClick={() => handleSelectImage(image.name)}
     >
       <img src={image.path} alt="profile" draggable="false" />
     </div>
   ));
-  const selectedImage = images.find((image) => image.isSelected)?.path;
+  const selectedImageUrl =
+    images.find((image) => image.name === selectedImage)?.path || "";
 
   return (
     <div className="profile-page">
@@ -101,13 +88,17 @@ function ProfilePage() {
             </p>
           </div>
           <div className="profile-page--profile-img-wrapper">
-            <img src={selectedImage || logo} alt="profile" draggable="false" />
+            <img
+              src={selectedImageUrl || logo}
+              alt="profile"
+              draggable="false"
+            />
           </div>
           <p className="profile-page--username">{user.email}</p>
           <div className="profile-page--buttons">
             <SnakeButton
               text={ProfilePageTr.uploadImage[langCode]}
-              onClick={toggleImageUploader}
+              onClick={() => setIsImageUploaderActive(true)}
             />
           </div>
         </section>

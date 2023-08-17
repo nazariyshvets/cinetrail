@@ -16,26 +16,6 @@ function Header() {
   const { user } = useContext(AuthContext);
   const { langCode } = useContext(TrContext);
 
-  useEffect(() => {
-    if (!user) {
-      return;
-    }
-
-    const docRef = doc(db, "users", user.uid);
-    const unsubscribe = onSnapshot(docRef, (snapshot) => {
-      const userData = snapshot.data();
-      const imagesData = userData?.images;
-      const profileImageData = imagesData?.find((image) => image.isSelected);
-      const profileImageDataName = profileImageData?.name;
-
-      if (profileImage.name !== profileImageDataName) {
-        loadProfileImage(profileImageDataName);
-      }
-    });
-
-    return () => unsubscribe();
-  }, [profileImage, user]);
-
   async function loadProfileImage(imageName) {
     if (!imageName) {
       return;
@@ -44,11 +24,29 @@ function Header() {
     try {
       const imageRef = ref(storage, `images/${imageName}`);
       const fullPath = await getDownloadURL(imageRef);
+
       setProfileImage({ name: imageName, path: fullPath });
     } catch (error) {
       console.error("Error loading profile image:", error);
     }
   }
+
+  useEffect(() => {
+    if (!user) {
+      return;
+    }
+
+    const docRef = doc(db, "users", user.uid);
+    const unsubscribe = onSnapshot(docRef, (snapshot) => {
+      const selectedImage = snapshot.data()?.selectedImage || "";
+
+      if (profileImage.name !== selectedImage) {
+        loadProfileImage(selectedImage);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [profileImage, user]);
 
   return (
     <header className="header">

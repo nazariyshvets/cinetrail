@@ -48,6 +48,9 @@
 .hero--play,
 .hero--watch-later {
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 0.7rem 2rem;
   border: 2px solid rgba(255, 255, 255, 0.5);
   border-right: 2px solid rgba(255, 255, 255, 0.2);
@@ -108,5 +111,9 @@
   .hero--title,
   .hero--desc {
     width: 100%;
+  }
+
+  .hero--buttons {
+    column-gap: 0.6rem;
   }
 }

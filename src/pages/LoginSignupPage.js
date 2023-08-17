@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 import Header from "../components/Header";
 import Login from "../components/Login";
 import Signup from "../components/Signup";
-import StarsBackground from "../components/StarsBackground";
+import StarryBackground from "../components/StarryBackground";
 import { AuthContext } from "../contexts/AuthContext";
 import "../styles/LoginSignupPage.css";
 
@@ -25,7 +25,7 @@ function LoginSignupPage() {
       {user && <Navigate to="/home" replace={true} />}
 
       <Header />
-      <StarsBackground />
+      <StarryBackground />
       <div className="login-signup-page--content" ref={contentRef}>
         <Login onSetContainer={() => setContainer(false)} />
         <Signup onSetContainer={() => setContainer(true)} />

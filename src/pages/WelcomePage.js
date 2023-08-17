@@ -2,7 +2,7 @@ import { useRef, useEffect, useContext } from "react";
 import { Link, Navigate } from "react-router-dom";
 import Typed from "typed.js";
 import Header from "../components/Header";
-import StarsBackground from "../components/StarsBackground";
+import StarryBackground from "../components/StarryBackground";
 import { AuthContext } from "../contexts/AuthContext";
 import { TrContext } from "../contexts/TrContext";
 import { WelcomePageTr } from "../translations/translations";
@@ -34,7 +34,7 @@ function WelcomePage() {
       {user && <Navigate to="/home" replace={true} />}
 
       <Header />
-      <StarsBackground />
+      <StarryBackground />
       <img
         src={logo}
         className="welcome-page--logo"

@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
+import { isMobile, isTablet } from "react-device-detect";
 import Thumbnail from "./Thumbnail";
 import {
   BASE_IMAGE_URL,
@@ -7,7 +8,7 @@ import {
 } from "../constants/constants";
 import "../styles/Row.css";
 
-const scrollOffset = 300;
+const scrollOffset = isMobile || isTablet ? 200 : 300;
 
 function Row({ link, title, movies }) {
   const thumbnailsRef = useRef(null);
@@ -45,13 +46,17 @@ function Row({ link, title, movies }) {
           {thumbnails}
         </div>
         <div
-          className="row--arrow row--arrow-left"
+          className={`row--arrow row--arrow-left ${
+            isMobile || isTablet ? "show" : ""
+          }`}
           onClick={() => handleScroll(-scrollOffset)}
         >
           <i className="fa-solid fa-chevron-left"></i>
         </div>
         <div
-          className="row--arrow row--arrow-right"
+          className={`row--arrow row--arrow-right ${
+            isMobile || isTablet ? "show" : ""
+          }`}
           onClick={() => handleScroll(scrollOffset)}
         >
           <i className="fa-solid fa-chevron-right"></i>

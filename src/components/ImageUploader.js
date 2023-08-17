@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, setDoc, arrayUnion } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage";
 import { nanoid } from "nanoid";
 import FoldedButton from "./FoldedButton";
@@ -33,18 +33,12 @@ function ImageUploader({ onClose }) {
       const snapshot = await uploadBytes(storageRef, file);
       const imageName = snapshot.metadata.name;
       const docRef = doc(db, "users", user.uid);
-      const docSnap = await getDoc(docRef);
-      const imagesData = docSnap.data().images || [];
-
-      const updatedImagesData = imagesData.map((imageData) => ({
-        ...imageData,
-        isSelected: false,
-      }));
 
       await setDoc(
         docRef,
         {
-          images: [...updatedImagesData, { name: imageName, isSelected: true }],
+          images: arrayUnion(imageName),
+          selectedImage: imageName,
         },
         { merge: true }
       );
@@ -53,8 +47,8 @@ function ImageUploader({ onClose }) {
       alert(ImageUploaderTr.imageUploaded[langCode]);
       onClose();
     } catch (error) {
-      console.error("Error uploading image:", error);
       alert(ImageUploaderTr.error[langCode]);
+      console.error("Error uploading image:", error);
     } finally {
       setIsUploading(false);
     }
