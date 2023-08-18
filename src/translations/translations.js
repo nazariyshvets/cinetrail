@@ -305,6 +305,15 @@ const MoviePageTr = {
     "pt-PT": "início",
     "pl-PL": "strona główna",
   },
+  trailerNotFound: {
+    "uk-UA": "трейлер не знайдено",
+    "en-GB": "trailer not found",
+    "de-DE": "trailer nicht gefunden",
+    "fr-FR": "bande-annonce introuvable",
+    "es-ES": "tráiler no encontrado",
+    "pt-PT": "trailer não encontrado",
+    "pl-PL": "trailer nie znaleziony",
+  },
   companies: {
     "uk-UA": "Кінокомпанія",
     "en-GB": "Production companies",

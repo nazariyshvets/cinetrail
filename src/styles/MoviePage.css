@@ -19,9 +19,30 @@
   color: var(--golden);
 }
 
-.movie-page--movie {
+.movie-page--loading-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 30rem;
+}
+
+.movie-page--trailer {
+  width: 100%;
+  height: 30rem;
+}
+
+.movie-page--trailer-not-found {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 30rem;
+  font-size: 2rem;
+  font-weight: 700;
+  -webkit-text-fill-color: var(--lightgray);
+  color: var(--lightgray);
+  text-transform: capitalize;
 }
 
 .movie-page--desc,

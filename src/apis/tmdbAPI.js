@@ -63,9 +63,18 @@ async function getMovieVideos(movieId) {
 }
 
 function getTrailerVideoKey(videos) {
-  if (videos.results && videos.results.length > 0) {
-    return videos.results[0].key;
+  const results = videos.results;
+
+  if (results && results.length > 0) {
+    const trailerVideos = results.filter(
+      (video) => video.type === "Trailer" || video.type === "Teaser"
+    );
+
+    if (trailerVideos.length > 0) {
+      return trailerVideos[0].key;
+    }
   }
+
   return null;
 }
 
