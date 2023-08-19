@@ -1,4 +1,8 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+} from "react-router-dom";
 import WelcomePage from "../pages/WelcomePage";
 import LoginSignupPage from "../pages/LoginSignupPage";
 import HomePage from "../pages/HomePage";
@@ -65,6 +69,10 @@ const router = createBrowserRouter([
         <WatchlistPage />
       </PrivatePage>
     ),
+  },
+  {
+    path: "*",
+    element: <Navigate to="/" />,
   },
 ]);
 

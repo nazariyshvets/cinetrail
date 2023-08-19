@@ -131,7 +131,7 @@ function MoviesPage() {
   const title =
     genre?.charAt(0).toUpperCase() + genre?.slice(1) ||
     MoviesPageTr.search[langCode];
-  const thumbnails = movies.map((movie, index) => (
+  const thumbnails = movies?.map((movie, index) => (
     <Thumbnail
       key={index}
       id={movie.id}
