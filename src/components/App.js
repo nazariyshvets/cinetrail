@@ -1,8 +1,11 @@
+import { useContext } from "react";
 import {
   createBrowserRouter,
   RouterProvider,
   Navigate,
 } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthContext";
+import AppLoading from "../components/AppLoading";
 import WelcomePage from "../pages/WelcomePage";
 import LoginSignupPage from "../pages/LoginSignupPage";
 import HomePage from "../pages/HomePage";
@@ -77,7 +80,9 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  const { isLoading } = useContext(AuthContext);
+
+  return isLoading ? <AppLoading /> : <RouterProvider router={router} />;
 }
 
 export default App;

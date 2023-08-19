@@ -15,7 +15,7 @@ import { AuthContextTr } from "../translations/translations";
 const AuthContext = createContext();
 
 function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
+  const [authState, setAuthState] = useState({ user: null, isLoading: true });
   const { langCode } = useContext(TrContext);
 
   function registerUser(email, password) {
@@ -81,15 +81,17 @@ function AuthProvider({ children }) {
   }
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => setUser(user));
+    const unsubscribe = onAuthStateChanged(auth, (user) =>
+      setAuthState({ user, isLoading: false })
+    );
 
     return () => unsubscribe();
-  }, []);
+  }, [setAuthState]);
 
   return (
     <AuthContext.Provider
       value={{
-        user,
+        ...authState,
         registerUser,
         signInUser,
         signOutUser,
