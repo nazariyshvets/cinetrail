@@ -1,0 +1,91 @@
+.thumbnail {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  flex-shrink: 0;
+  width: 16rem;
+  height: 10rem;
+  padding: 0.7rem;
+  border-radius: 0.7rem;
+  box-shadow: inset 0 0 10px 3px rgba(255, 255, 255, 0.5);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.thumbnail:hover .thumbnail--overlay {
+  display: flex;
+}
+
+.thumbnail--img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumbnail--title {
+  text-transform: capitalize;
+  text-shadow: 0 0 5px var(--black);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.thumbnail--overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  column-gap: 2rem;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.thumbnail--overlay--button {
+  position: relative;
+  border: none;
+  background-color: transparent;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.thumbnail--overlay--button:hover .icon {
+  -webkit-text-fill-color: var(--golden);
+  color: var(--golden);
+}
+
+.thumbnail--overlay--button:hover .thumbnail--overlay--tooltip {
+  display: block;
+}
+
+/* tooltips */
+.thumbnail--overlay--tooltip {
+  position: absolute;
+  top: 130%;
+  left: 50%;
+  display: none;
+  padding: 0.25rem 1.2rem;
+  border-radius: 0.4rem;
+  background-color: var(--gray);
+  font-size: 0.8rem;
+  text-transform: capitalize;
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+
+.thumbnail--overlay--tooltip::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  border-width: 0.4rem;
+  border-style: solid;
+  border-color: transparent transparent var(--gray) transparent;
+  transform: translateX(-50%);
+}

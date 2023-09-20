@@ -1,0 +1,53 @@
+.movie-page--main {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  padding: 1rem;
+}
+
+.movie-page--back {
+  width: fit-content;
+  padding: 0.25rem 0.7rem;
+  font-weight: 500;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+.movie-page--back:hover,
+.movie-page--back:hover * {
+  -webkit-text-fill-color: var(--golden);
+  color: var(--golden);
+}
+
+.movie-page--loading-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 30rem;
+}
+
+.movie-page--trailer {
+  width: 100%;
+  height: 30rem;
+}
+
+.movie-page--trailer-not-found {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 30rem;
+  font-size: 2rem;
+  font-weight: 700;
+  -webkit-text-fill-color: var(--lightgray);
+  color: var(--lightgray);
+  text-transform: capitalize;
+}
+
+.movie-page--desc,
+.movie-page--companies,
+.movie-page--release-date {
+  -webkit-text-fill-color: var(--lightgray);
+  color: var(--lightgray);
+}

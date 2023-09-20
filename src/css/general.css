@@ -1,0 +1,55 @@
+:root {
+  --black: #141414;
+  --white: #fff;
+  --golden: #ffd700;
+  --gray: #727272;
+  --lightgray: #d3d3d3;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Roboto, Arial, sans-serif;
+  -webkit-text-fill-color: var(--white);
+  color: var(--white);
+  text-decoration: none;
+}
+
+::-webkit-scrollbar {
+  width: 0.7rem;
+  height: 0.7rem;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--black);
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 4rem;
+  background: var(--gray);
+}
+
+::selection {
+  background: rgba(255, 215, 0, 0.5);
+}
+
+body {
+  background-color: var(--black);
+}
+
+#root {
+  min-height: 100dvh;
+}
+
+@media screen and (max-width: 1024px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  html {
+    font-size: 12px;
+  }
+}

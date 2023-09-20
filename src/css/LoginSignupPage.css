@@ -1,0 +1,125 @@
+.login-signup-page {
+  min-height: calc(100dvh - 4rem);
+  height: calc(100dvh - 4rem);
+}
+
+.login-signup-page--content {
+  display: flex;
+  align-items: center;
+  column-gap: 10%;
+  width: 25rem;
+  min-height: 100%;
+  margin-inline: auto;
+  padding-block: 1rem;
+  overflow: hidden;
+}
+
+.login,
+.signup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  row-gap: 1rem;
+  width: 100%;
+  padding: 4rem 2rem;
+  border-radius: 2rem;
+  box-shadow: inset 0 0 10px 3px rgba(255, 255, 255, 0.5);
+}
+
+.login--title,
+.signup--title {
+  font-size: 2.5rem;
+}
+
+.login--form,
+.signup--form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.login--input-wrapper,
+.signup--input-wrapper {
+  position: relative;
+  padding-block: 0.4rem;
+  border-bottom: 1px solid white;
+}
+
+.login--icon-wrapper,
+.signup--icon-wrapper {
+  position: absolute;
+  right: 0;
+}
+
+.login--input,
+.login--input:-webkit-autofill,
+.signup--input {
+  width: 100%;
+  padding: 0 2.5rem 0 0.7rem;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 1rem;
+  caret-color: var(--white);
+  transition: background-color 5000s;
+}
+
+.login--input.filled + label,
+.login--input:focus + label,
+.signup--input.filled + label,
+.signup--input:focus + label {
+  left: 0;
+  bottom: 110%;
+  font-size: 0.85rem;
+}
+
+.login--input-wrapper > label,
+.signup--input-wrapper > label {
+  position: absolute;
+  left: 0.7rem;
+  bottom: 0.4rem;
+  font-size: 1rem;
+  transition: font-size 0.4s, left 0.4s, bottom 0.4s;
+  user-select: none;
+  pointer-events: none;
+  cursor: text;
+}
+
+.login--login-button,
+.signup--signup-button {
+  padding-block: 0.3rem;
+  border: 2px solid white;
+  border-radius: 0.5rem;
+  background-color: transparent;
+  font-size: 1rem;
+  transition: box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.login--login-button:hover,
+.signup--signup-button:hover {
+  box-shadow: 0 0 5px 3px rgba(255, 255, 255, 0.5);
+}
+
+.login--no-account,
+.signup--have-account {
+  text-align: center;
+}
+
+.login--signup,
+.signup--login {
+  border: none;
+  background: transparent;
+  font-size: 1rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.login--separator {
+  width: 100%;
+  height: 1px;
+  background-color: var(--white);
+}
